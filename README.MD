@@ -1,4 +1,4 @@
-# curtach hidden torrent тарикат ;)
+# curtach hidden torrent тарикат for Windows 11 and Nodejs ;)
 # Start:
 ```
 curl -s https://raw.githubusercontent.com/asc3t1c/curtach/refs/heads/main/launch.bat | cmd
