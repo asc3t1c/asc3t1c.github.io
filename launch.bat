@@ -18,7 +18,7 @@ if %errorlevel% neq 0 (
 :: Download server.js if it doesn't exist locally
 if not exist server.js (
     echo [nu11secur1tyAI] Downloading server.js from repository...
-    powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/asc3t1c/curtach/refs/heads/main/server.js' -OutFile 'server.js'"
+    powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/asc3t1c/curtach/refs/heads/main/curtach.js' -OutFile 'server.js'"
 )
 
 :: Start the Node.js server in the background
