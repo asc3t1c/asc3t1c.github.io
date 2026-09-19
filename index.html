@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nu11secur1tyAI - Torrent Downloader Utility</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        h2 {
+            color: #bb86fc;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #333;
+            background: #2d2d2d;
+            color: #fff;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #bb86fc;
+            color: #121212;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #985eff;
+        }
+        #results {
+            margin-top: 20px;
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Torrent Search Utility</h2>
+        
+        <div class="form-group">
+            <label for="searchTerm">Търси за торент:</label>
+            <input type="text" id="searchTerm" placeholder="Въведи име на филм, игра...">
+        </div>
+        
+        <button id="searchBtn">Търси</button>
+
+        <div id="results">
+            <p>Резултатите ще се появят тук...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript logic -->
+    <script>
+        document.getElementById('searchBtn').addEventListener('click', async () => {
+            const query = document.getElementById('searchTerm').value.trim();
+            const resultsContainer = document.getElementById('results');
+
+            if (!query) {
+                resultsContainer.innerHTML = '<p style="color: #ff5252;">Моля, въведи ключова дума за търсене!</p>';
+                return;
+            }
+
+            resultsContainer.innerHTML = '<p>Търсене в ход...</p>';
+
+            try {
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    let html = `<p><strong>Резултати за:</strong> ${escapeHtml(data.query)}</p><ul>`;
+                    data.results.forEach(item => {
+                        html += `<li>${escapeHtml(item.title)} - <a href="${item.magnet}" style="color: #bb86fc;">Magnet Link</a></li>`;
+                    });
+                    html += `</ul>`;
+                    resultsContainer.innerHTML = html;
+                } else {
+                    resultsContainer.innerHTML = '<p>Няма намерени резултати.</p>';
+                }
+            } catch (error) {
+                resultsContainer.innerHTML = '<p style="color: #ff5252;">Грешка при връзка с бекенда.</p>';
+            }
+        });
+
+        // Helper function to sanitize user input against XSS
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+    </script>
+</body>
+</html>
