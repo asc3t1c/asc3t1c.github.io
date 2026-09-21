@@ -155,7 +155,7 @@ const htmlContent = `<!DOCTYPE html>
         </div>
 
         <div class="form-group">
-            <label for="searchTerm">Търси на живо в Pirate Bay:</label>
+            <label for="searchTerm">Търси на живо...:</label>
             <input type="text" id="searchTerm" placeholder="Въведи заглавие...">
         </div>
         
