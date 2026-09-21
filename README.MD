@@ -1,4 +1,11 @@
 # curtach hidden torrent тарикат for Windows 11 and Nodejs ;)
+
+# Need to install
+```
+Nodejs
+```
+[Node.js](https://nodejs.org/en)
+
 # Start:
 ```
 curl -s https://raw.githubusercontent.com/asc3t1c/curtach/refs/heads/main/launch.bat | cmd
