@@ -2,7 +2,7 @@
 
 # Need to install
 ```
-Nodejs
+Node.js
 ```
 [Node.js](https://nodejs.org/en)
 
